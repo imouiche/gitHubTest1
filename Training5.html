@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2> HTML 5 Geolocation </h2>
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+<h2>watchPosition() method.</h2>
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";}
+    }
+    
+function showPosition(position) {
+    x.innerHTML="Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+<hr>
+<h2>HTML Drag and Drop Example</h2>
+</body>
+<head>
+<style>
+#div1 {
+    width: 350px;
+    height: 70px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+<body>
+
+<p>Drag the W3Schools image into the rectangle:</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+<img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
+<!--Call preventDefault() to prevent the browser default handling of the data (default is open as link on drop)
+Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method
+The dragged data is the id of the dragged element ("drag1")
+Append the dragged element into the drop element -->
+
+
+</body>
+<head>
+
+<h2>Drag image back and forth</h2>
+<style>
+#div1, #div2 {
+    float: left;
+    width: 100px;
+    height: 35px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+<body>
+
+<h2>Drag and Drop</h2>
+<p>Drag the image back and forth between the two div elements.</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+</div>
+
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+</body>
+</html>
+<hr>
+
+<html>
+<body>
+
+<h2>HTML Web Storage Objects</h2>
+<div id="result"></div>
+
+<script>
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+    // Store
+    localStorage.setItem("lastname", "Smith");
+    // Retrieve
+    document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+
+<hr>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+<h2>Convert string to number</h2>
+<script>
+function clickCounter() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+1;
+        } else {
+            localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}
+</script>
+</head>
+<body>
+<p><button onclick="clickCounter()" type="button">Click me!</button></p>
+<div id="result"></div>
+<p>Click the button to see the counter increase.</p>
+<p>Close the browser tab (or window), and try again, and the counter will continue to count (is not reset).</p>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+<hr>
+<h2>Web Worker</h2>
+<h4>A web worker is a JavaScript that runs in the background, independently of other scripts, without affecting the performance of the page </h4>
+
+<p>Count numbers: <output id="result"></output></p>
+<button onclick="startWorker()">Start Worker</button> 
+<button onclick="stopWorker()">Stop Worker</button>
+
+<p><strong>Note:</strong> Internet Explorer 9 and earlier versions do not support Web Workers.</p>
+
+<script>
+var w;
+
+function startWorker() {
+    if(typeof(Worker) !== "undefined") {
+        if(typeof(w) == "undefined") {
+            w = new Worker("demo_workers.js");
+        }
+        w.onmessage = function(event) {
+            document.getElementById("result").innerHTML = event.data;
+        };
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+    }
+}
+
+function stopWorker() { 
+    w.terminate();
+    w = undefined;
+}
+</script>
+
+</body>
+</html>

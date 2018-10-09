@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Input Validation </title>
+	<meta charset="utf-8">
+	<meta name="Author" content="Inoussa M.">
+
+	<script type="text/javascript">
+		function checkForBlank(){
+
+			if(document.getElementById("fname").value == ""){
+				alert('Please eneter your firstname');
+				document.getElementById("fname").style.bordercolor = "red";
+				return false;
+			}
+			else if (document.getElementById("lname").value == ""){
+				alert('Please eneter your last name');
+				document.getElementById("lname").style.bordercolor = "red";
+				return false;
+			}
+		}
+	</script>
+</head>
+ 
+<body>
+ <h1> Check empty string</h1>
+
+ <form method="post" action="#" onsubmit="return checkForBlank()">
+ <fieldset>
+ <label>Fisrt name: 
+ <input type="text" id="fname" name="fname"> <br>
+ Last Name <input type="text" id="lname" name="lname"> </label><br>
+ <input type="submit" name="send data"> 
+ </fieldset> </form>
+</body>
+</html>

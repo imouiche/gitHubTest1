@@ -1,13 +1,35 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Login Screen Page</title>
 </head>
-<body>
+<!-- <body>
 <br> <form method ="post" action="badsite.com/login">
 Login: <input type="text" name="username"></br>
 Password: <input type="Password" name="Password">
 <input type="submit" value="submit" /></form>
+</body> -->
+
+<body>
+<form id="form1">
+Username: <input type="text" name="username" size="40">
+<!-- Password: <input type="Password" name="password"> -->
+<button onclick="outCredential()">Submit</button>
+</form>
+	<script type="text/javascript">
+	function outCredential(){
+		//var name = prompt("Please enter our name "); 
+		var a=6,b=5,ans=a+b,y,password,username;
+		y=document.getElementById("form1");
+		//z = document.getElementById("form1").value;
+		username=y.elements["username"].value;
+		//password = y.elements["password"].value;
+		document.getElementById("D1").innerHTML="Hello"+username+"<br>";
+		//document.getElementById("D1").innerHTML+= "your Password is "+password+"<br>";
+		//document.write("The answer is " + ans + " and z is "+ y);
+	}
+	</script>
+
+	<p id="D1"></p>
 </body>
 </html>
